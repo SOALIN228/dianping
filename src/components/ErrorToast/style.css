@@ -1,0 +1,22 @@
+.errorToast {
+  position: fixed;
+  z-index: 10000001;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.errorToast__text {
+  font-size: 14px;
+  max-width: 300px;
+  max-height: 300px;
+  padding: 15px;
+  color: #fff;
+  border-radius: 10px;
+  background-color: #000;
+}
