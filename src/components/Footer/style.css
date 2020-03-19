@@ -1,0 +1,26 @@
+.footer {
+  font-size: 12px;
+  font-weight: 400;
+  padding: 15px 5px 10px;
+  text-align: center;
+  background-color: #f0f0f0;
+}
+
+.footer__link {
+  line-height: 28px;
+  text-decoration: none;
+  color: #adadad;
+}
+
+.footer__seperator {
+  font-weight: 400;
+  font-style: normal;
+  padding: 0 6px;
+  color: #8c8c8c;
+}
+
+.footer__copyright {
+  margin-top: 20px;
+  color: #d1d1d1;
+  text-shadow: 0 1px 1px #fff;
+}

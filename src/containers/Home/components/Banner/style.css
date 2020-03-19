@@ -1,0 +1,55 @@
+.banner {
+  display: flex;
+  flex-direction: column;
+  height: 120px;
+  background-image: url('https://www.dpfile.com/app/app-m-module/static/666419d6641cf0faec444fc12b50383d.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+.banner__title {
+  display: flex;
+  justify-content: center;
+  height: 30px;
+  margin: 24px 0 14px;
+}
+
+.banner__logo {
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  background-image: url('../../../../images/logo.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+}
+
+.banner__text {
+  font-size: 20px;
+  font-weight: bolder;
+  color: #111;
+}
+
+.banner__btns {
+  display: flex;
+  justify-content: center;
+}
+
+.banner__btn {
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 126px;
+  height: 40px;
+  margin-right: 15px;
+  color: #f63;
+  border: 1px solid #f63;
+  border-radius: 2px;
+}
+
+.banner__btn--bg {
+  color: #fff;
+  background-color: #f63;
+}

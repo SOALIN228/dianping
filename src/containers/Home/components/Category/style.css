@@ -1,0 +1,36 @@
+.category {
+  padding: 0 0 30px;
+  text-align: center;
+  color: #333;
+  border-top: solid 1px #e1e1e1;
+  border-bottom: solid 1px #e1e1e1;
+  background-color: #fff;
+}
+
+.category__section {
+  font-size: 13px;
+  float: left;
+  width: 20%;
+  padding: 13px 0 0;
+  text-align: center;
+}
+
+.category__icon {
+  width: 44px;
+  height: 44px;
+  margin: 0 auto 2px;
+}
+
+.category__text {
+  display: inline-block;
+  margin: 0;
+  vertical-align: top;
+}
+
+.slick-dots li {
+  margin: 0;
+}
+
+.slick-dots li.slick-active button:before {
+  color: #f5734b;
+}
