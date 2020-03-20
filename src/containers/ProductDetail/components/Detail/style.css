@@ -1,0 +1,110 @@
+.detail {
+  font-size: 14px;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 10px;
+  padding: 0;
+  color: #333;
+  background-color: #fff;
+}
+
+.detail__header {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 42px;
+  height: 40px;
+  margin-left: 13px;
+  background: url("https://www.dpfile.com/mod/app-m-tuangou/1.3.79/css/img/repeat-x.png") repeat-x 0 bottom;
+  background-size: auto 10px;
+}
+
+.detail__headerIcon {
+  position: relative;
+  top: 2px;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  margin-left: 4px;
+  background: url("https://www.dpfile.com/mod/app-m-tuangou/1.3.79/css/img/icon-comm.png") no-repeat 0 -38px;
+  background-size: 14px auto;
+}
+
+.detail__table {
+  line-height: 22px;
+  width: calc(100% - 13px);
+  margin-top: 12px;
+  margin-bottom: 15px;
+  margin-left: 13px;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+
+.detail__table:first-child {
+  width: 70%;
+  text-align: left;
+}
+
+.detail__row {
+  background: url("https://www.dpfile.com/mod/app-m-tuangou/1.3.79/css/img/repeat-x.png") repeat-x 0 bottom;
+  background-size: auto 10px;
+}
+
+.detail__category {
+  font-weight: 400;
+  padding: 10px 0;
+  color: #999;
+}
+
+.detail__td--alignRight {
+  padding: 10px 5px 10px 0;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.detail__td--price {
+  padding: 10px 5px 10px 0;
+  text-align: right;
+  text-decoration: line-through;
+  color: #999;
+}
+
+.detail__td--priceNew {
+  display: inline-block;
+  margin-top: 5px;
+  color: #f63;
+}
+
+.detail__remark {
+  margin-top: 12px;
+  margin-left: 13px;
+  padding-bottom: 10px;
+  background: url("https://www.dpfile.com/mod/app-m-tuangou/1.3.79/css/img/repeat-x.png") repeat-x 0 bottom;
+  background-size: auto 10px;
+}
+
+.detail__more {
+  font-size: 14px;
+  line-height: 45px;
+  height: 45px;
+  padding: 0 10px 0 15px;
+  color: #333;
+}
+
+.detail__notice {
+  font-size: 10px;
+  line-height: 12px;
+  padding-left: 5px;
+  color: #999;
+}
+
+.detail__arrow {
+  float: right;
+  width: 8px;
+  height: 8px;
+  margin-top: 17px;
+  margin-right: 5px;
+  cursor: pointer;
+  transform: rotate(-45deg);
+  border-right: 2px solid #ccc;
+  border-bottom: 2px solid #ccc;
+}

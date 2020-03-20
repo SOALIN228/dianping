@@ -50,7 +50,7 @@ class LikeList extends Component {
     }
   }
 
-  componentDidUpdate () {
+  componentDidUpdate (prevProps, prevState, snapshot) {
     if (this.props.pageCount >= 3 && !this.removeListener) {
       document.removeEventListener('scroll', this.handleScroll)
       this.removeListener = true

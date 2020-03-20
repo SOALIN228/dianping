@@ -1,0 +1,144 @@
+.productOverview {
+  background-color: #fff;
+}
+
+.productOverview__header {
+  position: relative;
+  width: 100%;
+}
+
+.productOverview__imgContainer {
+  min-height: 100px;
+}
+
+.productOverview__img {
+  display: block;
+  width: 100%;
+  min-height: 100px;
+}
+
+.productOverview__baseInfo {
+  position: absolute;
+  z-index: 999;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 15px;
+  background: -webkit-gradient(
+    linear,
+    0 0,
+    0 100%,
+    from(rgba(0, 0, 0, 0)),
+    to(rgba(0, 0, 0, 0.6))
+  );
+}
+
+.productOverview__title {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 18px;
+  margin-bottom: 3px;
+  color: #fff;
+}
+
+.productOverview__content {
+  font-size: 12px;
+  line-height: 14px;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.productOverview__purchase {
+  line-height: 50px;
+  display: -webkit-box;
+  height: 50px;
+  margin-top: 0;
+  padding-left: 15px;
+  background: url("https://www.dpfile.com/mod/app-m-tuangou/1.3.79/css/img/repeat-x.png") repeat-x 0 bottom;
+  background-size: auto 10px;
+  -webkit-box-pack: justify;
+}
+
+.productOverview__symbol {
+  font-size: 21px;
+  display: inline-block;
+  padding-right: 0;
+  color: #f63;
+}
+
+.productOverview__price {
+  font-size: 30px;
+  display: inline-block;
+  margin-right: 3px;
+  padding-right: 0;
+  color: #f63;
+}
+
+.productOverview__price--old {
+  font-size: 14px;
+  line-height: 12px;
+  display: inline-block;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  text-decoration: line-through;
+  color: #8c8c8c;
+}
+
+.productOverview__btn {
+  font-size: 16px;
+  line-height: 35px;
+  display: block;
+  width: 105px;
+  height: 34px;
+  margin: 8px;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px;
+  background-color: #f63;
+}
+
+.productOverview__remark {
+  line-height: 45px;
+  overflow: hidden;
+  height: 45px;
+  margin: 0;
+  padding-left: 15px;
+  list-style: none;
+  color: #666;
+}
+
+.productOverview__remarkItem {
+  float: left;
+  width: 50%;
+}
+
+.productOverview__sign1 {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  vertical-align: sub;
+  background-image: url("https://www.dpfile.com/mod/app-m-tuangou/1.3.79/css/img/comm.png");
+  background-position: 0 -275px;
+  background-size: 25px auto;
+}
+
+.productOverview__sign2 {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  vertical-align: sub;
+  background-image: url("https://www.dpfile.com/mod/app-m-tuangou/1.3.79/css/img/comm.png");
+  background-position: 0 -296px;
+  background-size: 25px auto;
+}
+
+.productOverview__desc {
+  font-size: 12px;
+}
