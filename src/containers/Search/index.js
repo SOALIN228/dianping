@@ -68,10 +68,13 @@ class Search extends Component {
   }
 
   handleClickItem = item => {
-    const { setInputText, addHistoryKeyword } = this.props.searchActions
+    const { setInputText, addHistoryKeyword, loadRelatedShops } = this.props.searchActions
     setInputText(item.keyword)
     addHistoryKeyword(item.id)
-    // 跳转搜索结果页逻辑todo
+    // 加载搜索相关数据
+    loadRelatedShops(item.id)
+    // 跳转搜索结果页
+    this.props.history.push('/search_result')
   }
 
   handleClearHistory = () => {
