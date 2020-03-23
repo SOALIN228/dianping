@@ -3,10 +3,12 @@ import comments from './comments'
 import products from './products'
 import shops from './shops'
 import keywords from './keywords'
+import orders from './orders'
 
 export default combineReducers({
   comments,
   products,
   shops,
-  keywords
+  keywords,
+  orders
 })
