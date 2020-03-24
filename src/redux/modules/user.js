@@ -1,7 +1,15 @@
 import url from '../../utils/url'
 import { combineReducers } from 'redux'
 import { FETCH_DATA } from '../middleware/api'
-import { AVAILABLE_TYPE, getOrderById, REFUND_TYPE, schema, TO_PAY_TYPE } from './entities/orders'
+import {
+  AVAILABLE_TYPE,
+  getOrderById,
+  REFUND_TYPE,
+  schema,
+  TO_PAY_TYPE,
+  actions as orderActions,
+  actionTypes as orderActionTypes
+} from './entities/orders'
 
 // actionTypes
 export const actionTypes = {
@@ -10,7 +18,15 @@ export const actionTypes = {
   FETCH_ORDERS_SUCCESS: 'USER/FETCH_ORDERS_SUCCESS',
   FETCH_ORDERS_FAILURE: 'USER/FETCH_ORDERS_FAILURE',
   // 设置当选选中的tab
-  SET_CURRENT_TAB: 'USER/SET_CURRENT_TAB'
+  SET_CURRENT_TAB: 'USER/SET_CURRENT_TAB',
+  // 删除指定订单
+  DELETE_ORDER_REQUEST: 'USER/DELETE_ORDER_REQUEST',
+  DELETE_ORDER_SUCCESS: 'USER/DELETE_ORDER_SUCCESS',
+  DELETE_ORDER_FAILURE: 'USER/DELETE_ORDER_FAILURE',
+  // 显示删除确认对话框
+  SHOW_DELETE_DIALOG: 'USER/SHOW_DELETE_DIALOG',
+  // 隐藏删除确认对话框
+  HIDE_DELETE_DIALOG: 'USER/HIDE_DELETE_DIALOG'
 }
 
 // action
@@ -24,6 +40,15 @@ const fetchOrders = (endpoint) => ({
     endpoint,
     schema
   }
+})
+
+const deleteOrderRequest = () => ({
+  type: actionTypes.DELETE_ORDER_REQUEST
+})
+
+const deleteOrderSuccess = (orderId) => ({
+  type: actionTypes.DELETE_ORDER_SUCCESS,
+  orderId
 })
 
 export const actions = {
@@ -44,6 +69,32 @@ export const actions = {
   setCurrentTab: index => ({
     type: actionTypes.SET_CURRENT_TAB,
     index
+  }),
+  // 删除订单
+  removeOrder: () => {
+    return (dispatch, getState) => {
+      const { id } = getState().user.currentOrder
+      // 订单ID是否存在
+      if (id) {
+        dispatch(deleteOrderRequest())
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            dispatch(deleteOrderSuccess(id))
+            dispatch(orderActions.deleteOrder(id))
+            resolve()
+          }, 500)
+        })
+      }
+    }
+  },
+  // 显示删除对话框
+  showDeleteDialog: orderId => ({
+    type: actionTypes.SHOW_DELETE_DIALOG,
+    orderId
+  }),
+  // 隐藏删除对话框
+  hideDeleteDialog: () => ({
+    type: actionTypes.HIDE_DELETE_DIALOG
   })
 }
 
@@ -56,7 +107,17 @@ const initialState = {
     availableIds: [], // 可使用的订单id
     refundIds: [] // 退款订单id
   },
-  currentTab: 0
+  currentTab: 0, // 当前选中tab页
+  currentOrder: {
+    id: null,
+    isDeleting: false // 是否正在删除
+  }
+}
+
+const removeOrderId = (state, key, orderId) => {
+  return state[key].filter(id => {
+    return id !== orderId
+  })
 }
 
 const orders = (state = initialState.orders, action) => {
@@ -83,6 +144,15 @@ const orders = (state = initialState.orders, action) => {
       }
     case actionTypes.FETCH_ORDERS_FAILURE:
       return { ...state, isFetching: true }
+    case orderActionTypes.DELETE_ORDER:
+    case actionTypes.DELETE_ORDER_SUCCESS:
+      return {
+        ...state,
+        ids: removeOrderId(state, 'ids', action.orderId),
+        toPayIds: removeOrderId(state, 'toPayIds', action.orderId),
+        availableIds: removeOrderId(state, 'availableIds', action.orderId),
+        refundIds: removeOrderId(state, 'refundIds', action.orderId)
+      }
     default:
       return state
   }
@@ -97,9 +167,27 @@ const currentTab = (state = initialState.currentTab, action) => {
   }
 }
 
+const currentOrder = (state = initialState.currentOrder, action) => {
+  switch (action.type) {
+    case actionTypes.SHOW_DELETE_DIALOG:
+      return {
+        ...state,
+        id: action.orderId,
+        isDeleting: true
+      }
+    case actionTypes.HIDE_DELETE_DIALOG:
+    case actionTypes.DELETE_ORDER_SUCCESS:
+    case actionTypes.DELETE_ORDER_FAILURE:
+      return initialState.currentOrder
+    default:
+      return state
+  }
+}
+
 export default combineReducers({
   currentTab,
-  orders
+  orders,
+  currentOrder
 })
 
 // selectors
@@ -110,4 +198,8 @@ export const getOrders = state => {
   return state.user.orders[key].map(id => {
     return getOrderById(state, id)
   })
+}
+
+export const getDeletingOrderId = (state) => {
+  return state.user.currentOrder && state.user.currentOrder.isDeleting ? state.user.currentOrder.id : null
 }
