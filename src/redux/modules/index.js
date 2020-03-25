@@ -5,6 +5,7 @@ import app from './app'
 import search from './search'
 import login from './login'
 import user from './user'
+import purchase from './purchase'
 
 const rootReducers = combineReducers({
   entities,
@@ -12,7 +13,8 @@ const rootReducers = combineReducers({
   app,
   search,
   login,
-  user
+  user,
+  purchase
 })
 
 export default rootReducers

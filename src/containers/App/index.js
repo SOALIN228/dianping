@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import ErrorToast from '../../components/ErrorToast'
 import Home from '../Home'
 import ProductDetail from '../ProductDetail'
+import Purchase from '../Purchase'
 import Search from '../Search'
 import SearchResult from '../SearchResult'
 import Login from '../Login'
@@ -22,6 +23,7 @@ class App extends Component {
             <Route path="/login" component={Login}/>
             <PrivateRoute path="/user" component={User}/>
             <Route path="/detail/:id" component={ProductDetail}/>
+            <Route path="/purchase/:id" component={Purchase}/>
             <Route path="/search" component={Search}/>
             <Route path="/search_result" component={SearchResult}/>
             <Route path="/" component={Home}/>

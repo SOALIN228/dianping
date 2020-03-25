@@ -12,6 +12,12 @@ import {
 } from './entities/orders'
 import { actions as commentActions } from './entities/comments'
 
+const typeToKey = {
+  [TO_PAY_TYPE]: 'toPayIds',
+  [AVAILABLE_TYPE]: 'availableIds',
+  [REFUND_TYPE]: 'refundIds'
+}
+
 // actionTypes
 export const actionTypes = {
   // 获取订单列表
@@ -79,8 +85,8 @@ export const actions = {
   loadOrders: () => {
     return (dispatch, getState) => {
       // 是否获取过订单数据
-      const { ids } = getState().user.orders
-      if (ids.length > 0) {
+      const { fetched } = getState().user.orders
+      if (fetched) {
         return null
       }
 
@@ -156,7 +162,7 @@ export const actions = {
           dispatch(commentActions.addComment(commentObj))
           dispatch(orderActions.addComment(id, commentObj.id))
           resolve()
-        })
+        }, 500)
       })
     }
   }
@@ -166,6 +172,7 @@ export const actions = {
 const initialState = {
   orders: {
     isFetching: false,
+    fetched: false, // 页面数据是否加载过
     ids: [],
     toPayIds: [], // 待付款的订单id
     availableIds: [], // 可使用的订单id
@@ -204,6 +211,7 @@ const orders = (state = initialState.orders, action) => {
       return {
         ...state,
         isFetching: false,
+        fetched: true,
         ids: state.ids.concat(action.response.ids),
         toPayIds: state.ids.concat(toPayIds),
         availableIds: state.ids.concat(availableIds),
@@ -220,6 +228,19 @@ const orders = (state = initialState.orders, action) => {
         availableIds: removeOrderId(state, 'availableIds', action.orderId),
         refundIds: removeOrderId(state, 'refundIds', action.orderId)
       }
+    case orderActionTypes.ADD_ORDER:
+      const { order } = action
+      const key = typeToKey[order.type]
+      return key
+        ? {
+          ...state,
+          ids: [order.id].concat(state.ids),
+          [key]: [order.id].concat(state[key])
+        }
+        : {
+          ...state,
+          ids: [order.id].concat(state.ids)
+        }
     default:
       return state
   }

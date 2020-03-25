@@ -1,0 +1,114 @@
+.purchaseForm__title {
+  font-size: 14px;
+  font-weight: 400;
+  position: relative;
+  padding: 10px 29px 10px 15px;
+  color: #999;
+}
+
+.purchaseForm__wrapper {
+  margin-top: 20px;
+  padding-left: 15px;
+  background-color: #fff;
+}
+
+.purchaseForm__row {
+  position: relative;
+  padding: 10px 16px 10px 0;
+  color: #999;
+}
+
+.purchaseForm__row:not(:last-child) {
+  background-image: url(//www.dpfile.com/mod/mbase-css/2.0.1/dist/outline/img/repeat-x-bottom.png);
+  background-repeat: repeat-x;
+  background-position: 0 bottom;
+}
+
+.purchaseForm__rowLabel {
+  display: inline-block;
+  width: 50%;
+}
+
+.purchaseForm__rowValue {
+  float: right;
+}
+
+.purchaseForm__quantity {
+  font-size: 15px;
+  line-height: 28px;
+  width: 42px;
+  margin-left: 5px;
+  text-align: center;
+  color: #333;
+  border: 1px solid #bbb;
+}
+
+.purchaseForm__counter--dec {
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 30px;
+  margin-left: 5px;
+  padding: 5px 0 5px;
+  text-align: center;
+  color: #bbb;
+  border: 1px solid #bbb;
+  border-radius: 2px;
+}
+
+.purchaseForm__counter--inc {
+  font-size: 12px;
+  font-weight: 700;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 30px;
+  margin-left: 5px;
+  padding: 5px 0 5px;
+  text-align: center;
+  color: #f63;
+  border: 1px solid #f63;
+  border-radius: 2px;
+}
+
+.purchaseForm__remark {
+  line-height: 45px;
+  overflow: hidden;
+  height: 45px;
+  margin: 0;
+  padding-left: 15px;
+  list-style: none;
+  color: #666;
+}
+
+.purchaseForm__remarkItem {
+  float: left;
+  margin-right: 10px;
+}
+
+.purchaseForm__sign {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 5px;
+  vertical-align: sub;
+  background-image: url("https://www.dpfile.com/mod/app-m-tuangou/1.3.79/css/img/comm.png");
+  background-position: 0 -275px;
+  background-size: 25px auto;
+}
+
+.purchaseForm__desc {
+  font-size: 12px;
+}
+
+.purchaseForm__submit {
+  font-size: 18px;
+  line-height: 40px;
+  display: block;
+  height: 40px;
+  margin: 10px 9px;
+  text-align: center;
+  color: #fff;
+  border-radius: 4px;
+  background-color: #f63;
+}
