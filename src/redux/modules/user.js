@@ -10,6 +10,7 @@ import {
   actions as orderActions,
   actionTypes as orderActionTypes
 } from './entities/orders'
+import { actions as commentActions } from './entities/comments'
 
 // actionTypes
 export const actionTypes = {
@@ -26,7 +27,19 @@ export const actionTypes = {
   // 显示删除确认对话框
   SHOW_DELETE_DIALOG: 'USER/SHOW_DELETE_DIALOG',
   // 隐藏删除确认对话框
-  HIDE_DELETE_DIALOG: 'USER/HIDE_DELETE_DIALOG'
+  HIDE_DELETE_DIALOG: 'USER/HIDE_DELETE_DIALOG',
+  // 显示订单评价
+  SHOW_COMMENT_AREA: 'USER/SHOW_COMMENT_AREA',
+  // 隐藏订单评价
+  HIDE_COMMENT_AREA: 'USER/HIDE_COMMENT_AREA',
+  // 编辑订单评价
+  SET_COMMENT: 'USER/SET_COMMENT',
+  // 订单打分
+  SET_STARS: 'USER/SET_STARS',
+  // 提交订单评价
+  POST_COMMENT_REQUEST: 'USER/POST_COMMENT_REQUEST',
+  POST_COMMENT_SUCCESS: 'USER/POST_COMMENT_SUCCESS',
+  POST_COMMENT_FAILURE: 'USER/POST_COMMENT_FAILURE'
 }
 
 // action
@@ -50,6 +63,16 @@ const deleteOrderSuccess = (orderId) => ({
   type: actionTypes.DELETE_ORDER_SUCCESS,
   orderId
 })
+
+const postCommentRequest = () => ({
+  type: actionTypes.POST_COMMENT_REQUEST
+})
+
+
+const postCommentSuccess = () => ({
+  type: actionTypes.POST_COMMENT_SUCCESS
+})
+
 
 export const actions = {
   // 获取订单列表
@@ -95,7 +118,48 @@ export const actions = {
   // 隐藏删除对话框
   hideDeleteDialog: () => ({
     type: actionTypes.HIDE_DELETE_DIALOG
-  })
+  }),
+  // 显示订单评价编辑框
+  showCommentArea: orderId => ({
+    type: actionTypes.SHOW_COMMENT_AREA,
+    orderId
+  }),
+  // 隐藏订单评价编辑框
+  hideCommentArea: () => ({
+    type: actionTypes.HIDE_COMMENT_AREA
+  }),
+  // 设置评价信息
+  setComment: comment => ({
+    type: actionTypes.SET_COMMENT,
+    comment
+  }),
+  // 设置评价等级
+  setStars: stars => ({
+    type: actionTypes.SET_STARS,
+    stars
+  }),
+  // 提交评价
+  submitComment: () => {
+    return (dispatch, getState) => {
+      dispatch(postCommentRequest())
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          const {
+            currentOrder: { id, stars, comment }
+          } = getState().user
+          const commentObj = {
+            id: +new Date(), // 评论id
+            stars: stars,
+            content: comment
+          }
+          dispatch(postCommentSuccess())
+          dispatch(commentActions.addComment(commentObj))
+          dispatch(orderActions.addComment(id, commentObj.id))
+          resolve()
+        })
+      })
+    }
+  }
 }
 
 //  reducers
@@ -110,7 +174,10 @@ const initialState = {
   currentTab: 0, // 当前选中tab页
   currentOrder: {
     id: null,
-    isDeleting: false // 是否正在删除
+    isDeleting: false, // 是否正在删除
+    isCommenting: false, // 是否显示评论框
+    comment: '', // 评论内容
+    stars: 0 // 评论等级
   }
 }
 
@@ -175,10 +242,23 @@ const currentOrder = (state = initialState.currentOrder, action) => {
         id: action.orderId,
         isDeleting: true
       }
+    case actionTypes.SHOW_COMMENT_AREA:
+      return {
+        ...state,
+        id: action.orderId,
+        isCommenting: true
+      }
     case actionTypes.HIDE_DELETE_DIALOG:
+    case actionTypes.HIDE_COMMENT_AREA:
     case actionTypes.DELETE_ORDER_SUCCESS:
     case actionTypes.DELETE_ORDER_FAILURE:
+    case actionTypes.POST_COMMENT_SUCCESS:
+    case actionTypes.POST_COMMENT_FAILURE:
       return initialState.currentOrder
+    case actionTypes.SET_COMMENT:
+      return { ...state, comment: action.comment }
+    case actionTypes.SET_STARS:
+      return { ...state, stars: action.stars }
     default:
       return state
   }
@@ -201,5 +281,21 @@ export const getOrders = state => {
 }
 
 export const getDeletingOrderId = (state) => {
-  return state.user.currentOrder && state.user.currentOrder.isDeleting ? state.user.currentOrder.id : null
+  return state.user.currentOrder && state.user.currentOrder.isDeleting
+    ? state.user.currentOrder.id
+    : null
+}
+
+export const getCommentingOrderId = state => {
+  return state.user.currentOrder && state.user.currentOrder.isCommenting
+    ? state.user.currentOrder.id
+    : null
+}
+
+export const getCurrentOrderComment = state => {
+  return state.user.currentOrder ? state.user.currentOrder.comment : ''
+}
+
+export const getCurrentOrderStars = state => {
+  return state.user.currentOrder ? state.user.currentOrder.stars : 0
 }
