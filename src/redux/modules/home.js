@@ -1,7 +1,8 @@
 import url from '../../utils/url'
 import { combineReducers } from 'redux'
 import { FETCH_DATA } from '../middleware/api'
-import { schema } from './entities/products'
+import { getAllProductDetail, schema } from './entities/products'
+import { createSelector } from 'reselect'
 
 // actionTypes
 export const actionTypes = {
@@ -135,17 +136,31 @@ export default combineReducers({
 })
 
 // selectors
-export const getLikes = state => {
-  return state.home.likes.ids.map(id => {
-    return state.entities.products[id]
-  })
+export const getAllLikeId = state => {
+  return state.home.likes.ids
 }
 
-export const getDiscounts = state => {
-  return state.home.discounts.ids.map(id => {
-    return state.entities.products[id]
-  })
+export const getAllDiscountId = state => {
+  return state.home.discounts.ids
 }
+
+export const getLikes = createSelector(
+  [getAllLikeId, getAllProductDetail],
+  (likeIds, products) => {
+    return likeIds.map(id => {
+      return products[id]
+    })
+  }
+)
+
+export const getDiscounts = createSelector(
+  [getAllDiscountId, getAllProductDetail],
+  (discountIds, products) => {
+    return discountIds.map(id => {
+      return products[id]
+    })
+  }
+)
 
 export const getPageCountOfLikes = state => {
   return state.home.likes.pageCount

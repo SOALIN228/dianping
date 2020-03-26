@@ -14,6 +14,10 @@ export const getProductDetail = (state, id) => {
   return product && product.detail && product.purchaseNotes ? product : null
 }
 
+export const getAllProductDetail = (state) => {
+  return state.entities.products
+}
+
 export const getProductById = (state, id) => {
   return state.entities.products[id] || null
 }

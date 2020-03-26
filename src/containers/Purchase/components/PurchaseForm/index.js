@@ -4,12 +4,10 @@ import './style.css'
 class PurchaseForm extends Component {
   render () {
     const {
-      product: { currentPrice },
       quantity,
-      phone
+      phone,
+      totalPrice
     } = this.props
-    // 订单总价
-    const totalPrice = (currentPrice * quantity).toFixed(1)
     return (
       <div className="purchaseForm">
         <div className="purchaseForm__wrapper">

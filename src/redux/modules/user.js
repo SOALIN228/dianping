@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import { FETCH_DATA } from '../middleware/api'
 import {
   AVAILABLE_TYPE,
-  getOrderById,
+  getAllOrders,
   REFUND_TYPE,
   schema,
   TO_PAY_TYPE,
@@ -11,6 +11,7 @@ import {
   actionTypes as orderActionTypes
 } from './entities/orders'
 import { actions as commentActions } from './entities/comments'
+import { createSelector } from 'reselect'
 
 const typeToKey = {
   [TO_PAY_TYPE]: 'toPayIds',
@@ -294,12 +295,18 @@ export default combineReducers({
 // selectors
 export const getCurrentTab = state => state.user.currentTab
 
-export const getOrders = state => {
-  const key = ['ids', 'toPayIds', 'availableIds', 'refundIds'][state.user.currentTab]
-  return state.user.orders[key].map(id => {
-    return getOrderById(state, id)
-  })
-}
+const getUserOrders = state => state.user.orders
+
+export const getOrders = createSelector(
+  [getCurrentTab, getUserOrders, getAllOrders],
+  (tabIndex, userOrders, orders) => {
+    const key = ['ids', 'toPayIds', 'availableIds', 'refundIds'][tabIndex]
+    const orderIds = userOrders[key]
+    return orderIds.map(id => {
+      return orders[id]
+    })
+  }
+)
 
 export const getDeletingOrderId = (state) => {
   return state.user.currentOrder && state.user.currentOrder.isDeleting
